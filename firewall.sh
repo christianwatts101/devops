@@ -154,8 +154,6 @@ fi
 
 
 iptables -I INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-
-iptables -N LOGGING
 iptables -A INPUT -j LOGGING
 iptables -A OUTPUT -j LOGGING
 iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables-Dropped: " --log-level 4
@@ -165,5 +163,7 @@ iptables -P OUTPUT DROP
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
 
+
+iptables -N LOGGING
 service iptables save
 service iptables restart
